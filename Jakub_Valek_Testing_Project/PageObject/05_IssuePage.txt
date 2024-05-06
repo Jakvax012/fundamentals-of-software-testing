@@ -1,0 +1,71 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+Documentation	Issue Test scenario. CRUD Operation: Create, Read, Update, Delete
+
+# TODO: Write Precondition and Postcondition, Tags 
+
+Pre Condition	Internet connection, Open browser, Registration, Login to account, Project must be created by the user before 
+Post Condition	Log out, Close browsers
+Tags	Issue, TS-1-Issue
+
+#******************* Common Variables ********************
+
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Issue creation field variables, Updated name of the issue
+
+IssuesPageUrl = https://gitlab.com/laurea-fost/first-project/-/issues
+NewIssuePageUrl = https://gitlab.com/laurea-fost/first-project/-/issues/new
+NameOfFirstIssue = First Issue
+RenameIssue = Renamed Issue
+Type = Issue
+Description = Description of issue
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive Test Cases and Test Process steps
+
+# Positive Test
+
+Create issue
+	Navigate to new issue page	NewIssuePageUrl
+	Input Title		NameOfFirstIssue
+	Choose Type		Type
+	Input description	Description
+	Click on "Create issue" button
+	Verify that Issue was created and appear in Issue page	IssuesPageUrl
+
+Update name of created issue
+	Navigate to Issue page	IssuesPageUrl
+	Choose Issue	NameOfFirstIssue
+	Click on "Edit" button
+	Input Title		RenameIssue
+	Click on "Save changes" button
+	Verify that Issue was renamed in Issue page		IssuesPageUrl
+
+
+Create second issue with privious updated name
+	Navigate to new issue page	NewIssuePageUrl
+	Input Title		NameOfFirstIssue
+	Choose Type		Type
+	Input description	Description
+	Click on "Create issue" button
+	Verify that Issue was created and appear in Issue page	IssuesPageUrl
+
+
+Delete first issue
+	Navigate to Issue page	IssuesPageUrl
+	Choose Issue	RenameIssue
+	Click on three dots (Issue actions)
+	Click on "Delete issue"
+	Click on "Delete issue"
+	Verify that delete message appeared and Issue was deleted in Issue page		IssuesPageUrl
+

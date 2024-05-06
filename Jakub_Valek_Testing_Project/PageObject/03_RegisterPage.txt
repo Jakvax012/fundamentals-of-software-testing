@@ -1,0 +1,98 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Documentation e.g. User Registration Test scenario with verification, valid and invalid credentials.
+
+Documentation	Testing the User Register functionality. User Register screnario with the valid and invalid credentials.
+
+# TODO: Write Precondition, Postcondition, Tags
+
+Pre Condition	Internet connection, Open Browser
+Post Condition	Close All Browsers
+Tags	Registration, TS-1-Registration
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Registration field variables
+
+RegisterUrl = https://gitlab.com/users/sign_up
+IWantTo = Set up a new team
+FirstName = Jakub
+LastName = Valek
+UserName = UserTest012
+Password = password123
+Email = UserTest012@laurea.fi
+ReCaptcha = Please complete the CAPTCHA portion of the form.
+Invalid_Email = UserTest
+Empty =
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive and Negative Test Cases and Test Process steps (Think about possible test cases)
+
+# Positive Test
+
+Register user with valid username and password 
+	Navigate to Register Page	RegisterUrl
+	Select I want to	IWantTo
+	Input First Name	FirstName
+	Input Last Name		LastName
+	Input Username		UserName
+	Input Password		Password
+	Input Email			Email
+	Fill ReCaptcha		ReCaptcha
+	Submit Register Form
+	Verify Page should contain verification of email adress and phone number
+
+
+# Negative Test 
+
+Error message Should Be Visible After Invalid Register With Valid I want to, First Name, Last Name, Username, Email, ReCaptcha And Empty Password
+	Navigate to Register Page	RegisterUrl
+	Select I want to	IWantTo
+	Input First Name	FirstName
+	Input Last Name		LastName
+	Input Username		UserName
+	Input Password		Empty
+	Input Email			Email
+	Fill ReCaptcha		ReCaptcha
+	Submit Register Form
+	Verify That Error message should show Password field as required
+
+
+Error message Should Be Visible After Invalid Register With Valid I want to, First Name, Last Name, Username, Password, ReCaptcha And Invalid Email
+	Navigate to Register Page	RegisterUrl
+	Select I want to	IWantTo
+	Input First Name	FirstName
+	Input Last Name		LastName
+	Input Username		UserName
+	Input Password		Password
+	Input Email			Invalid_Email
+	Fill ReCaptcha		ReCaptcha
+	Submit Register Form
+	Verify That Error message should show Email field as inncorect
+
+
+Error message Should Be Visible After Invalid Register With Valid I want to, First Name, Last Name, Username, Password, Email and without ReCaptcha
+	Navigate to Register Page	RegisterUrl
+	Select I want to	IWantTo
+	Input First Name	FirstName
+	Input Last Name		LastName
+	Input Username		UserName
+	Input Password		Password
+	Input Email			Email
+	Fill ReCaptcha		Empty
+	Submit Register Form
+	Verify That Error message should show to complete ReCaptcha verification
+
+
+

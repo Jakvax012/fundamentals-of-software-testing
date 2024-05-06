@@ -1,0 +1,117 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Dcocumentation e.g. Project Test scenario. CRUD Operation: Create, Read, Update, Delete
+
+Documentation	Organization and functionality of projects. Create, Read, Update, Delete operations.
+
+# TODO: Write Precondition, Postcondition, Tags
+
+Pre Condition	 Internet connection, Open browser, Registration, Login to account
+Post Condition	 Log out, Close all browsers
+Tags	ProjectPage, TS-1-ProjectPage
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Project creation field variables
+
+NewProjectPageUrl = https://gitlab.com/projects/new
+ProjectPageUrl = https://gitlab.com/dashboard/projects
+NameOfProject = First Project
+NameOfTemplateProject = First Template Project
+RenameOfTemplateProject = Second Template Project
+Template = Pages/Plain HTML
+ProjectUrl = laurea-fost
+ProjectSlug = first-project
+ProjectTemplateSlug = first-template-project
+VisibilityLevel = Private
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive and Negative Test Cases and Test Process steps
+
+# Positive Test
+
+Create blank project
+	Navigate To New project		NewProjectPageUrl
+	Click on "Create blank project"
+	Input Project name		NameOfProject
+	Choose Project URL 		ProjectUrl
+	Input Project slug 		ProjectSlug
+	Choose Visiblity level 	VisibilityLevel
+	Click on "Create project" button
+	Verify that project was created and appear in Project page	ProjectPageUrl
+
+
+Create template project
+	Navigate to New project		NewProjectPageUrl
+	Click On "Create from template"
+	Choose From Templates	Template			
+	Input Project name		NameOfTemplateProject
+	Choose Project URL 		ProjectUrl
+	Input Project slug 		ProjectTemplateSlug
+	Choose Visiblity Level 	VisibilityLevel
+	Click on "Create project" button
+	Verify that project was created and appear in Project page	ProjectPageUrl
+
+
+Update name of template project, that is already created
+	Navigate to Project page	ProjectPageUrl
+	Click on project	NameOfTemplateProject
+	Click on three dots (more actions) and "Project settings"
+	Input new Project name	RenameOfTemplateProject
+	Click on "Save changes"
+	Verify that project was renamed in Project page		ProjectPageUrl
+
+
+Delete template project, that is already created
+	Navigate to Project page	ProjectPageUrl
+	Click on project	NameOfTemplateProject
+	Click on three dots (more actions) and "Project settings"
+	In advanced section click on "Expand" button
+	Click on "Delete project" button
+	Enter verification and click on "Yes, delete project"
+	Verify that project was deleted in Project page		ProjectPageUrl
+
+
+Valide that message is showing: Project 'First project ' was successfully created.
+	Navigate To New project		NewProjectPageUrl
+	Click on "Create blank project"
+	Input Project name		NameOfProject
+	Choose Project URL 		ProjectUrl
+	Input Project slug 		ProjectSlug
+	Choose Visiblity level 	VisibilityLevel
+	Click on "Create project" button
+	Verify that message "Project 'First project ' was successfully created." appeared
+
+
+# Negative Test
+
+Create a blank project with the previous same name
+	Navigate To New project		NewProjectPageUrl
+	Click on "Create blank project"
+	Input Project name		NameOfProject
+	Choose Project URL 		ProjectUrl
+	Input Project slug 		ProjectSlug
+	Choose Visiblity level 	VisibilityLevel
+	Click on "Create project" button
+	Verify that project was created and appear in Project page	ProjectPageUrl
+	Navigate To New project		NewProjectPageUrl
+	Click on "Create blank project"
+	Input Project name		NameOfProject
+	Choose Project URL 		ProjectUrl
+	Input Project slug 		ProjectSlug
+	Choose Visiblity level 	VisibilityLevel
+	Click on "Create project" button
+	Verify that error message should show This project name has been already taken
+
+
+
